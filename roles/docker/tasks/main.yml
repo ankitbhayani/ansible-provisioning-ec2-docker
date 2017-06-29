@@ -1,0 +1,37 @@
+---
+
+-  name: Install zip
+   apt: name=zip state=present
+   become: yes
+   become_method: sudo
+
+-  name: 'First, add the GPG key for the official Docker repository to the system'
+   raw: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+-  name: 'Add the Docker repository to APT sources'
+   raw: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+-  name: 'Update the package database with the Docker packages'
+   raw: sudo apt-get update
+
+-  name: 'Make sure you are about to install from the Docker repo'
+   raw: apt-cache policy docker-ce
+
+-  name: 'Install docker'
+   raw: sudo apt-get install -y docker-ce
+
+-  name: Change permissions on /usr/local/bin
+   raw: sudo chown -R $(whoami) /usr/local/bin
+
+-  name: 'Install docker-machine'
+   raw: sudo curl -o /usr/local/bin/docker-machine -L "https://github.com/docker/machine/releases/download/v0.12.0/docker-machine-$(uname -s)-$(uname -m)"
+
+-  name: 'Set permissions of docker-machine'
+   shell: chmod +x /usr/local/bin/docker-machine
+
+
+-  name: 'docker-compose : Check the current release and if necessary, update'
+   raw: sudo curl -o /usr/local/bin/docker-compose -L "https://github.com/docker/compose/releases/download/1.11.2/docker-compose-$(uname -s)-$(uname -m)"
+
+-  name: 'Set permissions for docker-compose'
+   raw: sudo chmod +x /usr/local/bin/docker-compose

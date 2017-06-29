@@ -1,0 +1,9 @@
+---
+AWS_ACCESS_KEY: ""
+AWS_SECRET_KEY: ""
+AWS_SUBNET_ID: "subnet-2beec370"
+AWS_VPC_ID: "vpc-416e2327"
+EC2_REGION: "us-east-1"
+AWS_ZONE: "b"
+KEY_NAME: "id_rsa"
+NODE_COUNT: "1"
